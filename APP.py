@@ -140,6 +140,17 @@ class classifieur:#(str):#,par,X_trai,Y_train,X_test,Y_test):
   def train_classifieur(self,X_train,Y_train):
     self.algo.fit(X_train,Y_train)
   
+  def get_feature(self):
+    #Get features avec Random forest
+# from sklearn.feature_selection import RFE
+# from sklearn.linear_model import LogisticRegression
+# rfe_selector = RFE(estimator=LogisticRegression(), n_features_to_select=num_feats, step=10, verbose=5)
+# rfe_selector.fit(X_norm, y)
+# rfe_support = rfe_selector.get_support()
+# rfe_feature = X.loc[:,rfe_support].columns.tolist()
+# print(str(len(rfe_feature)), 'selected features')
+    return self.algo.get_feature
+  
   
 #   def get_parametrs(self):
 #     param=self.param_deflt
@@ -148,16 +159,6 @@ class classifieur:#(str):#,par,X_trai,Y_train,X_test,Y_test):
   def scor_classifieur(self,X_test,Y_test):
     return(self.algo.score(X_test,Y_test)*100)
   
-#   def Grid_search_CrossV(self,X_train,Y_train,score=False,best=False):
-#     cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
-#     search = GridSearchCV(self.algo,self.grid_param, scoring='accuracy', n_jobs=-1, cv=cv)
-#     result = search.fit(X_train, Y_train)
-#     if score==True:
-#       return(result.best_score_)
-#     if best==True:
-#       return(result.best_params_)
-      
-     
 
  
 
@@ -220,10 +221,12 @@ Model=st.radio(
 
 choix_classifieur=classifieur(Model)
 dicc={}
+dic_cont={}
 for k in choix_classifieur.grid_param.keys():
   l=choix_classifieur.grid_param[k]
   if (isinstance(l[0],int) or isinstance(l[0],float)):
     l.sort()
+    dic_cont[k]=l
     #dicc[k]=choix_classifieur.grid_param[k][0]
     dicc[k] =st.slider( f"For the parameter: {k}",step= (l[1]-l[0]),min_value=l[0], max_value=l[-1],value= l[-1]) 
   else:
@@ -247,17 +250,40 @@ st.write("The precision of the standard model is :", choix_classifieur.scor_clas
 st.markdown("we are going to explore the performance of your model with rispect to diverse parametrs")
 
 
+for (k,u) in dic_cont.items():
+  N_mean = 5
+  params_mean = np.zeros(len(u))
+  for n in range(N_mean):
+    params = []
+    for par in u:
+      params_m=dicc.copy()
+      params_m[k]=par
+      modl = choix_classifieur.algo.set_params(**params_m)  
+      modl.fit(x_train, y_train)
+      #tree3.score(X_test, y_test)
+      params.append(modl.score(x_test, y_test)) 
+    params_mean += np.array(params)
+  error={'par':u,'err': 1/N_mean*params_mean}
+  df_err=pd.DataFrame.from_dict(error, orient='columns', dtype=None, columns=None)
+  base=alt.Chart(df_err)
+  line11o = base.mark_line(color='#8A2BE2').encode(
+        x='par',
+        y='err',)
+  st.altair_chart(line11o, use_container_width=True)
+  
+  
+      
 
 st.write("Whould you like to tune your model using grid ")
-if Model in ['KNeighbors','Logistic Regression','Support Vector Machine Algorithm','Naive Bayes Algorithm']:
-  #cv = RepeatedStratifiedKFold(n_splits=3, n_repeats=10, random_state=1)
-  search = GridSearchCV(choix_classifieur.algo,choix_classifieur.grid_param)#, scoring='accuracy', n_iter = 100, cv = 3, verbose=2, random_state=42, n_jobs = -1) #, scoring='accuracy', n_jobs=-1, cv=cv)
-  #search =RandomizedSearchCV(choix_classifieur.algo,choix_classifieur.grid_param)#, n_iter = 100, cv = 20, verbose=2, random_state=1, n_jobs = -1)
-  result = search.fit(x_train, y_train)
-  st.write("The precision of the tuned model using grid searsh is :",100*result.best_score_)
+#if Model in ['KNeighbors','Logistic Regression','Support Vector Machine Algorithm','Naive Bayes Algorithm']:
+#cv = RepeatedStratifiedKFold(n_splits=3, n_repeats=10, random_state=1)
+search = GridSearchCV(choix_classifieur.algo,choix_classifieur.grid_param)#, scoring='accuracy', n_iter = 100, cv = 3, verbose=2, random_state=42, n_jobs = -1) #, scoring='accuracy', n_jobs=-1, cv=cv)
+#search =RandomizedSearchCV(choix_classifieur.algo,choix_classifieur.grid_param)#, n_iter = 100, cv = 20, verbose=2, random_state=1, n_jobs = -1)
+result = search.fit(x_train, y_train)
+st.write("The precision of the tuned model using grid searsh is :",100*result.best_score_)
 
-  
-  st.markdown("agregation arbk")
+
+#   st.markdown("agregation arbk")
   
   
 # name_dict = {"Anord":"", "Bernald":""}
