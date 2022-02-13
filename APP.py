@@ -19,8 +19,10 @@ from xgboost import XGBClassifier
 from sklearn.model_selection import RandomizedSearchCV
 
 
+###########################################################
 
 st.title("Comparator of usual classification models")
+
 st.subheader("1. Introduction")
 
 st.markdown("We begin by presenting the dataset, in all the study we are using a unique database of patients history for heart condition with respect to some atributes.  ")
@@ -34,6 +36,9 @@ st.dataframe(df)
 
 st.subheader("2. Data visualisation")
 st.markdown("First, let's explore the distribution conditioning to having or not a heart condition  of the continious variables.   \n We leave the choise for the user.")
+
+##########################################################
+
 variables_continues=['age','chol','trestbps','thalach','oldpeak']
 
 a = pd.get_dummies(df['cp'], prefix = "cp")
@@ -48,12 +53,7 @@ y = df_dum.target.values
 x_data = df_dum.drop(['target'], axis = 1)
 
 
-# def zones_erreur(classifieur, X, y,i):
-#     #renvoie la liste contenant les zones où le classifieur s'est trompé
-#     erreurs = list(abs(classifieur.predict(X) - y))
-#     zones_err = [k for k in range(len(erreurs)) if erreurs[k] == 1]
-#     return zones_err, [i for k in range(len(zones_err))]
-
+####################################
 
 class variable (str):
   
@@ -197,7 +197,8 @@ class classifieur:#(str):#,par,X_trai,Y_train,X_test,Y_test):
   def scor_classifieur(self,X_test,Y_test):
     return(self.algo.score(X_test,Y_test)*100)
 
- 
+
+################################ 
 
 #Data viz
       
@@ -240,6 +241,8 @@ scater_var1_var2=alt.Chart(df).mark_point().encode(
 
 st.altair_chart(scater_var1_var2, use_container_width=False)
 
+###################################################################
+
 st.subheader("3. Preprocessing Data")
 st.markdown("We can see that some of our explicatives variables (*'cp', 'thal' and 'slope'*) are categorical, we'll turn them into dummy variables. ")
 st.markdown("For the continious variables, since the notion of distance is used to do the classification, we dont want to influence the algorithm by an important discrepancy between the variables we will normalise/standardise them as the folowing")
@@ -249,6 +252,7 @@ st.latex(r'''
 st.latex(r'''
      X_{nor}=\frac{X-min(X)}{max(X)-min(X)}
      ''')
+###################################################################
 
 processing = st.radio(
                       "How would you like to preprocess the dataset ?",
@@ -268,6 +272,7 @@ elif processing == "Standardised":
     
 x_train, x_test, y_train, y_test = train_test_split(x,y,test_size = 0.2,random_state=0)  
 
+###################################################################
 
 st.subheader("4. Choice of the classifier")
 st.markdown("In this section we are going to explore the algorithm of your choise   ")
@@ -281,7 +286,7 @@ Model=st.radio(
 st.markdown("At first hand, one may chose an arbitrary selection for the model's parametrs and see how it performs. ")
 st.markdown ("**Remark :** The score of the chosen model depends also on one's choise in the data processing section.")
 
-
+####################################################################
 
 choix_classifieur=classifieur(Model)
 dicc={}
@@ -343,7 +348,7 @@ else:
 
 
 
-  
+st.markdown("From sklearn we can use some methods that can help our models")  
       
 
 grid=st.radio("Do you wish to use the GridSearchCV or  RandomizedSearchCV to tune your model ?",
@@ -366,17 +371,18 @@ else:
 # #search =RandomizedSearchCV(choix_classifieur.algo,choix_classifieur.grid_param)#, n_iter = 100, cv = 20, verbose=2, random_state=1, n_jobs = -1)
 # result = search.fit(x_train, y_train)
 # st.write("The precision of the tuned model using grid searsh is :",100*result.best_score_)
-
+st.markdown("**Use tip** : Please click on No and None in the past section in order to optimize the performance of the app.")
+#############################################################################
 
 st.subheader("5. Prediction error comparaison for the models")
-st.markdown("The objectif of this section is to see if the models misclassify for the same individuals. The test will be done on $ X_{test}=(X_i)_{i\leq N} $ and $ Y_test=(y_i )_{i\leq N} $.    \n We will show the graphes of the folowing fonctions: ")
+st.markdown("The objectif of this section is to see if the models misclassify for the same individuals. The test will be done on $ X_{test}=(X_i)_{i\leq N} $ and $ Y_{test}=(y_i )_{i\leq N} $.    \n We will show the graphes of the folowing fonctions: $f_k:\{1,...,N\}\rightarrow \{0,k\}$ ")
 
 st.latex(r'''
      f_{k}(i)=k\mathbb{1}_{\{C_k(X_i)\neq y_i\}}
      ''')
 st.markdown("Where,")
 st.latex(r'''
-     k\in\{1,2,3\} , \text{ the k-th classification model } C_k()\text{ . And} i\in \mathbb{N} \text{ the i-th individual}
+     k\in\{1,2,3\} , \text{ the k-th classification model } C_k()\text{ . And } i\in \mathbb{N} \text{ the i-th individual}
      ''')
 option = st.multiselect('Select the three models you want to compaire :', ['KNeighbors','Logistic Regression','Support Vector Machine Algorithm','Naive Bayes Algorithm','Decision Tree','Extra Trees', 'Random Forest', 'Perceptron', 'XGBoost','Adaboost'])
 st.write(option)  
