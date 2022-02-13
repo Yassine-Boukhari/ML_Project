@@ -374,7 +374,10 @@ st.markdown("The objectif of this section is to see if the models misclassify fo
 st.latex(r'''
      f_{k}(\hat{y}_i)=k\mathbb{1}_{\{C_k(y_i)\neq y_i\}}
      ''')
-
+st.markdown("Where,")
+st.latex(r'''
+     k\in\{1,2,3\} , \text{ the k-th classification model } C_k()
+     ''')
 option = st.multiselect('Select the three models you want to compaire :', ['KNeighbors','Logistic Regression','Support Vector Machine Algorithm','Naive Bayes Algorithm','Decision Tree','Extra Trees', 'Random Forest', 'Perceptron', 'XGBoost','Adaboost'])
 st.write(option)  
   
