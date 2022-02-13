@@ -390,6 +390,7 @@ if len(option)==3:
     #a.train_classifieur(x_train, y_train)
     erreurs,X_plot = a.zones_erreur(x_train, x_test,y_train, y_test,i)
     df_err[a.name] =  erreurs
+    df[f"X_plot{i}"]=X_plot
     i += 1
   st.dataframe(df_err)  
     
