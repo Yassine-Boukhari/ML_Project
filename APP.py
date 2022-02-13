@@ -369,7 +369,7 @@ else:
 
 
 st.subheader("5. Prediction error comparaison for the models")
-st.markdown("The objectif of this section is to see if the models misclassify for the same individuals. The test will be done on $X_{test}=\left(X_i\right)_{i\leq N}$ and $Y_test=\left(y_i\right)_{i\leq N}$.    \n We will show the graphes of the folowing fonctions: ")
+st.markdown("The objectif of this section is to see if the models misclassify for the same individuals. The test will be done on $X_{test}=\left(X_i \right )_{i\leq N}$ and $Y_test=\left(y_i \right )_{i\leq N}$.    \n We will show the graphes of the folowing fonctions: ")
 
 st.latex(r'''
      f_{k}(i)=k\mathbb{1}_{\{C_k(X_i)\neq y_i\}}
