@@ -395,7 +395,7 @@ if len(option)==3:
   st.dataframe(df_err1)  
   
   basez=alt.Chart(df_err1)
-  line1 = basez.mark_line(color='#8A2BE2').encode(
+  line1 = basez.mark_line(color='#E3CF57').encode(
         x='X_plot1',
         y=algo1.name,)
   line2 = basez.mark_line(color='#8A2BE2').encode(
