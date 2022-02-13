@@ -396,11 +396,11 @@ if len(option)==3:
   
   basez=alt.Chart(df_err1)
   line1 = basez.mark_line(color='#8A2BE2').encode(
-        x='X_plot1',
-        y=algo1.name,)
+        x=algo1.name,
+        y='X_plot1'algo1.name,)
   line2 = basez.mark_line(color='#8A2BE2').encode(
-        x='X_plot2',
-        y=algo2.name,)
+        x=algo2.name,
+        y='X_plot2',)
   st.altair_chart(line1+line2, use_container_width=True)
     
 # #   for k in dic_c.keys():
