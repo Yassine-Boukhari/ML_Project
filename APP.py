@@ -90,6 +90,7 @@ class classifieur:#(str):#,par,X_trai,Y_train,X_test,Y_test):
   def __init__(self,str):#,par,X_trai,Y_train,X_test,Y_test):
     
     if str=='KNeighbors':
+      self.name='KNeighbors'
       self.url="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html"
       self.algo=KNeighborsClassifier()
       self.grid_param= {"n_neighbors": [k for k in range(1,12)],
