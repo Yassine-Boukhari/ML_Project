@@ -48,11 +48,11 @@ y = df_dum.target.values
 x_data = df_dum.drop(['target'], axis = 1)
 
 
-def zones_erreur(classifieur, X, y,i):
-    #renvoie la liste contenant les zones où le classifieur s'est trompé
-    erreurs = list(abs(classifieur.predict(X) - y))
-    zones_err = [k for k in range(len(erreurs)) if erreurs[k] == 1]
-    return zones_err, [i for k in range(len(zones_err))]
+# def zones_erreur(classifieur, X, y,i):
+#     #renvoie la liste contenant les zones où le classifieur s'est trompé
+#     erreurs = list(abs(classifieur.predict(X) - y))
+#     zones_err = [k for k in range(len(erreurs)) if erreurs[k] == 1]
+#     return zones_err, [i for k in range(len(zones_err))]
 
 
 class variable (str):
@@ -185,6 +185,13 @@ class classifieur:#(str):#,par,X_trai,Y_train,X_test,Y_test):
   
   def scor_classifieur(self,X_test,Y_test):
     return(self.algo.score(X_test,Y_test)*100)
+
+  def zones_erreur(self,X_train, X,Y_train, y,i):
+    #renvoie la liste contenant les zones où le classifieur s'est trompé
+    train_classifieur(self,X_train,Y_train)
+    erreurs = list(abs(self.algo.predict(X) - y))
+    zones_err = [k for k in range(len(erreurs)) if erreurs[k] == 1]
+    return zones_err, [i for k in range(len(zones_err))]
   
 
  
@@ -370,7 +377,7 @@ if len(option)==3:
   algo3=classifieur(option[2])
   algos = [algo1, algo2, algo3]
   df_err=pd.DataFrame()
-  erreur1,X_plot1 = zones_erreur(algo1.algo, x_test, y_test,1)
+  erreur1,X_plot1 = zones_erreur(algo1,x_train, x_test,y_train, y_test,1)
   df_err[algo1.name] =  erreur1
   df_err['X_plot1']=X_plot1
   df_err = pd.DataFrame([i for k in range(len(y_test))])
@@ -378,7 +385,7 @@ if len(option)==3:
   i = 2
   for a in algos:
     a.train_classifieur(x_train, y_train)
-    erreurs,X_plot = zones_erreur(a.algo, x_test, y_test,i)
+    erreurs,X_plot = zones_erreur(a,x_train, x_test,y_train, y_test,i)
     df_err[a.name] =  erreurs
     i += 1
   st.dataframe(df_err)  
