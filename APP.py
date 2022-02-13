@@ -170,7 +170,7 @@ class classifieur:#(str):#,par,X_trai,Y_train,X_test,Y_test):
 
   def zones_erreur(self,X_train, X,Y_train, y,i):
     #renvoie la liste contenant les zones où le classifieur s'est trompé
-    train_classifieur(self,X_train,Y_train)
+    self.train_classifieur(X_train,Y_train)
     erreurs = list(abs(self.algo.predict(X) - y))
     zones_err = [k for k in range(len(erreurs)) if erreurs[k] == 1]
     return zones_err, [i for k in range(len(zones_err))]
