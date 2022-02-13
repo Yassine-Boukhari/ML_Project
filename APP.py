@@ -173,7 +173,7 @@ class classifieur:#(str):#,par,X_trai,Y_train,X_test,Y_test):
     #renvoie la liste contenant les zones où le classifieur s'est trompé
     self.train_classifieur(X_train,Y_train)
     erreurs = list(abs(self.algo.predict(X) - y))
-    zones_err =[k*(erreurs[k]==1) for k in range(len(y))] #[k for k in range(len(erreurs)) if erreurs[k] == 1]
+    zones_err =[i*(erreurs[k]==1) for k in range(len(y))] #[k for k in range(len(erreurs)) if erreurs[k] == 1]
     return zones_err, [i for k in range(len(y))]
   
   
@@ -396,11 +396,11 @@ if len(option)==3:
   
   basez=alt.Chart(df_err1)
   line1 = basez.mark_line(color='#8A2BE2').encode(
-        x=algo1.name,
-        y='X_plot1',)
+        x='X_plot1',
+        y=algo1.name,)
   line2 = basez.mark_line(color='#8A2BE2').encode(
-        x=algo2.name,
-        y='X_plot2',)
+        x='X_plot2',
+        y=algo2.name,)
   st.altair_chart(line1+line2, use_container_width=True)
     
 # #   for k in dic_c.keys():
