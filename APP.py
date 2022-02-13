@@ -383,7 +383,7 @@ if len(option)==3:
   erreur1,X_plot1 = algo1.zones_erreur(x_train, x_test,y_train, y_test,1)
   df_err[algo1.name] =  erreur1
   df_err['X_plot1']=X_plot1
-  df_err.columns =['X']
+  #df_err.columns =['X']
   i = 2
   st.dataframe(df_err)
 #   for a in algos:
