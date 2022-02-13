@@ -26,8 +26,8 @@ st.title("Comparator of usual classification models")
 st.subheader("1. Introduction")
 
 st.markdown("We begin by presenting the dataset, in all the study we are using a unique database of patients history for heart condition with respect to some atributes.  ")
-st.markdown("The **target variable** represent the presence **1**, or not **0** of a heart condition")
-st.markdown("The **explicatives variables** are the following:")
+st.markdown("The **target variable** represents the presence **1**, or not **0** of a heart condition")
+st.markdown("The **explicative variables** are the following:")
 st.markdown("age : *age in years*  \n sex : *(1 = male; 0 = female)*  \n cp : *chest pain type*  \n trestbps : *resting blood pressure (in mm Hg on admission to the hospital)*  \n chol : *serum cholestoral in mg/dl)*  \n fbs : *(fasting blood sugar > 120 mg/dl) (1 = true; 0 = false)*  \n restecg : *resting electrocardiographic results*  \n thalach : *maximum heart rate achieved*  \n exang : *exercise induced angina (1 = yes; 0 = no)*  \n oldpeak : *ST depression induced by exercise relative to rest*  \n slope : *the slope of the peak exercise ST segment*  \n ca : *number of major vessels (0-3) colored by flourosopy*  \n thal : *3 = normal; 6 = fixed defect; 7 = reversable defect*")
 
 st.markdown("We present you the dataset:")
@@ -35,7 +35,7 @@ df=pd.read_csv('heart.csv')
 st.dataframe(df)
 
 st.subheader("2. Data visualisation")
-st.markdown("First, let's explore the distribution conditioning to having or not a heart condition  of the continious variables.   \n We leave the choise for the user.")
+st.markdown("First, let's explore the distribution conditioning to having or not a heart condition  of the continious variables.   \n We leave the choice for the user.")
 
 ##########################################################
 
@@ -223,13 +223,13 @@ gp_chartvar = alt.Chart(dfvar).mark_bar().encode(
 st.altair_chart(gp_chartvar, use_container_width=False)
  
   
-st.markdown("Now, let's try to se if there exist some correlation between the chosen two variables at each time with respect to having or not a heart condition. ")
+st.markdown("Now, let's try to see if there exists some correlation between the chosen two variables at each time with respect to having or not a heart condition. ")
 var1 = st.radio(
-     "What is the first variable that you chose?  ",
+     "What is the first variable that you choose?  ",
       ('Age', 'Cholesterol','ST depression induced by exercise relative to rest','Resting blood pressure','Maximum heart rate achieved'))
 
 var2 = st.radio(
-     "What is the second variable that you chose?  ",
+     "What is the second variable that you choose?  ",
      ('Cholesterol','Age','ST depression induced by exercise relative to rest','Resting blood pressure','Maximum heart rate achieved'))
 
  
@@ -244,7 +244,7 @@ st.altair_chart(scater_var1_var2, use_container_width=False)
 ###################################################################
 
 st.subheader("3. Preprocessing Data")
-st.markdown("We can see that some of our explicatives variables (*'cp', 'thal' and 'slope'*) are categorical, we'll turn them into dummy variables. ")
+st.markdown("We can see that some of our explicative variables (*'cp', 'thal' and 'slope'*) are categorical, we'll turn them into dummy variables. ")
 st.markdown("For the continious variables, since the notion of distance is used to do the classification, we dont want to influence the algorithm by an important discrepancy between the variables we will normalise/standardise them as the folowing")
 st.latex(r'''
      X_{sta}=\frac{X-\mathbb{E}[X]}{sd[X]}
@@ -275,7 +275,7 @@ x_train, x_test, y_train, y_test = train_test_split(x,y,test_size = 0.2,random_s
 ###################################################################
 
 st.subheader("4. Choice of the classifier")
-st.markdown("In this section we are going to explore the algorithm of your choise   ")
+st.markdown("In this section we are going to explore the algorithm of your choice   ")
 scoreList = []
 #testdicc =st.slider( "For the parameter:",step= 11.5,min_value=0.0, max_value=100.98,value=10.5) 
 Model=st.radio(
@@ -283,8 +283,8 @@ Model=st.radio(
      ('KNeighbors','Logistic Regression','Support Vector Machine Algorithm','Naive Bayes Algorithm','Decision Tree','Extra Trees', 'Random Forest', 'Perceptron', 'XGBoost','Adaboost'))
 
 
-st.markdown("At first hand, one may chose an arbitrary selection for the model's parametrs and see how it performs. ")
-st.markdown ("**Remark :** The score of the chosen model depends also on one's choise in the data processing section.")
+st.markdown("At first hand, one may choose an arbitrary selection for the model's parameters and see how it performs. ")
+st.markdown ("**Remark :** The score of the chosen model depends also on one's choice in the data processing section.")
 
 ####################################################################
 
@@ -311,7 +311,7 @@ choix_classifieur.train_classifieur(x_train,y_train)
 
 st.write("The precision of the ",Model," model is :", choix_classifieur.scor_classifieur(x_test,y_test))
 
-st.markdown("Now, we are going to show a graph that may help tuning the model with better parameters. It's a kind of a grid search on the numerical parametrs, but one parametr at a time. ")
+st.markdown("Now, we are going to show a graph that may help tuning the model with better parameters. It's a kind of grid search on the numerical parameters, but one parametr at a time. ")
 
 choice_svsparam = st.radio("Do you wish to see the score versus the numerical parameters graph ?",
                            ('No','Yes'))
@@ -348,7 +348,7 @@ else:
 
 
 
-st.markdown("From sklearn we can use some methods that can help our models")  
+st.markdown("From sklearn we can use some methods that can help tune our models")  
       
 
 grid=st.radio("Do you wish to use the GridSearchCV or  RandomizedSearchCV to tune your model ?",
@@ -357,12 +357,12 @@ grid=st.radio("Do you wish to use the GridSearchCV or  RandomizedSearchCV to tun
 if grid=='GridSearchCV':
   search = GridSearchCV(choix_classifieur.algo,choix_classifieur.grid_param)
   result = search.fit(x_train, y_train)
-  st.write("The precision of the tuned model using GridSearchCV searsh is :",100*result.best_score_)
+  st.write("The precision of the tuned model using GridSearchCV is :",100*result.best_score_)
  
 elif grid=='RandomizedSearchCV':
   search =RandomizedSearchCV(choix_classifieur.algo,choix_classifieur.grid_param)
   result = search.fit(x_train, y_train)
-  st.write("The precision of the tuned model using RandomizedSearchCV searsh is :",100*result.best_score_)
+  st.write("The precision of the tuned model using RandomizedSearchCV is :",100*result.best_score_)
 
   
 else:
@@ -374,15 +374,15 @@ else:
 st.markdown("**Use tip** : Please click on No and None in the past section in order to optimize the performance of the app.")
 #############################################################################
 
-st.subheader("5. Prediction error comparaison for the models")
-st.markdown("The objectif of this section is to see if the models misclassify for the same individuals. The test will be done on $ X_{test}=(X_i)_{i\leq N} $ and $ Y_{test}=(y_i )_{i\leq N} $.    \n We will show the graphes of the folowing fonctions: $f_k:\{1,...,N\} \longrightarrow \{0,k\}$ ")
+st.subheader("5. Prediction error comparison for the models")
+st.markdown("The objective of this section is to see if the models misclassify for the same individuals. The test will be done on $ X_{test}=(X_i)_{i\leq N} $ and $ Y_{test}=(y_i )_{i\leq N} $.    \n We will show the graphes of the folowing fonctions: $f_k:\{1,...,N\} \longrightarrow \{0,k\}$ ")
 
 st.latex(r'''
      f_{k}(i)=k\mathbb{1}_{\{C_k(X_i)\neq y_i\}}
      ''')
 st.markdown("Where,")
 st.latex(r'''
-     k\in\{1,2,3\} , \text{ the k-th classification model } C_k()\text{ . And } i\in \mathbb{N} \text{ the i-th individual}
+     k\in\{1,2,3\} , \text{ the k-th classification model } C_k()\text{ . And } i\leq N \text{ the i-th individual}
      ''')
 option = st.multiselect('Select the three models you want to compaire :', ['KNeighbors','Logistic Regression','Support Vector Machine Algorithm','Naive Bayes Algorithm','Decision Tree','Extra Trees', 'Random Forest', 'Perceptron', 'XGBoost','Adaboost'])
 st.write(option)  
@@ -420,28 +420,11 @@ if len(option)==3:
         y=algo3.name,)
   st.altair_chart(line1+line2+line3, use_container_width=True)
     
-# #   for k in dic_c.keys():
-# #     dic_c[k]
-    
-    
-  
+
 
   dferpl=df_err1.drop(columns=['X_plot1', 'X_plot2','X_plot3'])
   st.dataframe(dferpl) 
  
   
   
-
-# pipe = Pipeline([
-#         ('sc', StandardScaler()),     
-#         ('knn', KNeighborsClassifier(algorithm='brute')) 
-#     ])
-#     params = {
-#         'knn__n_neighbors': [3, 5, 7, 9, 11]
-#     }
-#     clf = GridSearchCV(estimator=pipe,           
-#                       param_grid=params, 
-#                       cv=5,
-#                       return_train_score=True) 
-#     clf.fit(x_train, y_train)
 
