@@ -48,7 +48,7 @@ y = df_dum.target.values
 x_data = df_dum.drop(['target'], axis = 1)
 
 
-def zones_erreur(classifieur, X, y, i):
+def zones_erreur(classifieur, X, y):
     #renvoie la liste contenant les zones où le classifieur s'est trompé
     erreurs = list(abs(classifieur.predict(X) - y))
     zones_err = [k for k in range(len(erreurs)) if erreurs[k] == 1]
@@ -375,7 +375,7 @@ if len(option)==3:
   i = 1
   for a in algos:
     a.train_classifieur(x_train, y_train)
-    erreurs = zones_erreur(a.algo, x_test, y_test, i)
+    erreurs = zones_erreur(a.algo, x_test, y_test)
     df_err[a.name] =  [i*k for k in erreurs]
     i += 1
   st.dataframe(df_err)  
