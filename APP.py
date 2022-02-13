@@ -23,6 +23,10 @@ from sklearn.model_selection import RandomizedSearchCV
 
 st.title("Comparator of usual classification models")
 
+st.subheader("Authors:")
+st.markdown("Georges RAHAL    \n Yassine BOUKHARI    \n Othmane ESSADDEK    \n Pape ALE FALL")
+
+
 st.subheader("1. Introduction")
 
 st.markdown("We begin by presenting the dataset, in all the study we are using a unique database of patients history for heart condition with respect to some atributes.  ")
