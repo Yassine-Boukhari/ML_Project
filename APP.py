@@ -375,7 +375,7 @@ if len(option)==3:
   for a in algos:
     a.train_classifieur(x_train, y_train)
     erreurs, abscisses = zones_erreur(a.algo, x_test, y_test, i)
-    dicc[a.name] = [ [i*k for k in erreurs], abscisses]
+    dicc[a.name] =  [i*k for k in erreurs], abscisses
     i += 1
     
     
