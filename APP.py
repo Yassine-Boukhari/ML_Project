@@ -368,9 +368,14 @@ else:
 # st.write("The precision of the tuned model using grid searsh is :",100*result.best_score_)
 
 
+st.subheader("5. Prediction error comparaison for the models")
+st.mardkdown("The objectif of this section is to see if the models misclassify for the same individuals. We will show the graphes of the folowing fonctions:    ")
 
+st.latex(r'''
+     f_{k}(\hat{y}_i)=k\mathbb{1}_{\{C_k(y_i)\neq y_i\}}
+     ''')
 
-option = st.multiselect('Select the four modles you want to compaire :', ['KNeighbors','Logistic Regression','Support Vector Machine Algorithm','Naive Bayes Algorithm','Decision Tree','Extra Trees', 'Random Forest', 'Perceptron', 'XGBoost','Adaboost'])
+option = st.multiselect('Select the three models you want to compaire :', ['KNeighbors','Logistic Regression','Support Vector Machine Algorithm','Naive Bayes Algorithm','Decision Tree','Extra Trees', 'Random Forest', 'Perceptron', 'XGBoost','Adaboost'])
 st.write(option)  
   
 if len(option)==3:
