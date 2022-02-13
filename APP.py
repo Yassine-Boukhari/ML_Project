@@ -378,7 +378,7 @@ if len(option)==3:
   algo1=classifieur(option[0])
   algo2=classifieur(option[1])
   algo3=classifieur(option[2])
-  algos = [algo1, algo2, algo3]
+  algos = [algo2, algo3]
   df_err1=pd.DataFrame()
   erreur1,X_plot1 = algo1.zones_erreur(x_train, x_test,y_train, y_test,1)
   df_err1[algo1.name] =  erreur1
@@ -395,13 +395,13 @@ if len(option)==3:
   st.dataframe(df_err1)  
   
   basez=alt.Chart(df_err1)
-  line1 = basez.mark_line(color='#E3CF57').encode(
+  line1 = basez.mark_line(color='#458B00').encode(
         x='X_plot1',
         y=algo1.name,)
   line2 = basez.mark_line(color='#8A2BE2').encode(
         x='X_plot2',
         y=algo2.name,)
-  line3 = basez.mark_line(color='#458B00').encode(
+  line3 = basez.mark_line(color='#E3CF57').encode(
         x='X_plot3',
         y=algo3.name,)
   st.altair_chart(line1+line2+line3, use_container_width=True)
