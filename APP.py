@@ -401,7 +401,10 @@ if len(option)==3:
   line2 = basez.mark_line(color='#8A2BE2').encode(
         x='X_plot2',
         y=algo2.name,)
-  st.altair_chart(line1+line2, use_container_width=True)
+  line3 = basez.mark_line(color='#458B00').encode(
+        x='X_plot3',
+        y=algo3.name,)
+  st.altair_chart(line1+line2+line3, use_container_width=True)
     
 # #   for k in dic_c.keys():
 # #     dic_c[k]
