@@ -372,11 +372,11 @@ st.subheader("5. Prediction error comparaison for the models")
 st.markdown("The objectif of this section is to see if the models misclassify for the same individuals. We will show the graphes of the folowing fonctions: ")
 
 st.latex(r'''
-     f_{k}(\hat{y}_i)=k\mathbb{1}_{\{C_k(X_i)\neq y_i\}}
+     f_{k}(i)=k\mathbb{1}_{\{C_k(X_i)\neq y_i\}}
      ''')
 st.markdown("Where,")
 st.latex(r'''
-     k\in\{1,2,3\} , \text{ the k-th classification model } C_k()
+     k\in\{1,2,3\} , \text{ the k-th classification model } C_k()\text{ . And} i\in \mathbb{N} \text{ the i-th individual}
      ''')
 option = st.multiselect('Select the three models you want to compaire :', ['KNeighbors','Logistic Regression','Support Vector Machine Algorithm','Naive Bayes Algorithm','Decision Tree','Extra Trees', 'Random Forest', 'Perceptron', 'XGBoost','Adaboost'])
 st.write(option)  
