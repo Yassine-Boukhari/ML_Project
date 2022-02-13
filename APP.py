@@ -372,7 +372,7 @@ st.subheader("5. Prediction error comparaison for the models")
 st.markdown("The objectif of this section is to see if the models misclassify for the same individuals. We will show the graphes of the folowing fonctions: ")
 
 st.latex(r'''
-     f_{k}(\hat{y}_i)=k\mathbb{1}_{\{C_k(y_i)\neq y_i\}}
+     f_{k}(\hat{y}_i)=k\mathbb{1}_{\{C_k(X_i)\neq y_i\}}
      ''')
 st.markdown("Where,")
 st.latex(r'''
