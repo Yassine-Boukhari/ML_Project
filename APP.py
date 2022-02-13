@@ -395,10 +395,10 @@ if len(option)==3:
   st.dataframe(df_err1)  
   
   basez=alt.Chart(df_err1)
-  line1 = basz.mark_line(color='#8A2BE2').encode(
+  line1 = basez.mark_line(color='#8A2BE2').encode(
         x='X_plot1',
         y=algo1.name,)
-  line2 = basz.mark_line(color='#8A2BE2').encode(
+  line2 = basez.mark_line(color='#8A2BE2').encode(
         x='X_plot2',
         y=algo2.name,)
   st.altair_chart(line1+line2, use_container_width=True)
