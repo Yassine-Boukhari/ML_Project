@@ -52,7 +52,7 @@ def zones_erreur(classifieur, X, y, i):
     #renvoie la liste contenant les zones où le classifieur s'est trompé
     erreurs = list(abs(classifieur.predict(X) - y))
     zones_err = [k for k in range(len(erreurs)) if erreurs[k] == 1]
-    return zones_err, [i for k in range(len(zones_err))]
+    return zones_err#, [i for k in range(len(zones_err))]
 
 
 class variable (str):
@@ -370,13 +370,18 @@ if len(option)==3:
   algo3=classifieur(option[2])
   algos = [algo1, algo2, algo3]
   
-  dicc = {}
+  df_err = pd.DataFrame([i for k in range(len(y_test))])
+  df_err.columns =['X']
   i = 1
   for a in algos:
     a.train_classifieur(x_train, y_train)
-    erreurs, abscisses = zones_erreur(a.algo, x_test, y_test, i)
-    dicc[a.name] =  [i*k for k in erreurs], abscisses
+    erreurs = zones_erreur(a.algo, x_test, y_test, i)
+    df_err[a.name] =  [i*k for k in erreurs]
     i += 1
+  st.dataframe(df_err)  
+    
+#   for k in dic_c.keys():
+#     dic_c[k]
     
     
   
