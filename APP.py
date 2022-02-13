@@ -375,7 +375,7 @@ st.markdown("**Use tip** : Please click on No and None in the past section in or
 #############################################################################
 
 st.subheader("5. Prediction error comparaison for the models")
-st.markdown("The objectif of this section is to see if the models misclassify for the same individuals. The test will be done on $ X_{test}=(X_i)_{i\leq N} $ and $ Y_{test}=(y_i )_{i\leq N} $.    \n We will show the graphes of the folowing fonctions: $f_k:\{1,...,N\}\rightarrow \{0,k\}$ ")
+st.markdown("The objectif of this section is to see if the models misclassify for the same individuals. The test will be done on $ X_{test}=(X_i)_{i\leq N} $ and $ Y_{test}=(y_i )_{i\leq N} $.    \n We will show the graphes of the folowing fonctions: $f_k:\{1,...,N\} \longrightarrow \{0,k\}$ ")
 
 st.latex(r'''
      f_{k}(i)=k\mathbb{1}_{\{C_k(X_i)\neq y_i\}}
