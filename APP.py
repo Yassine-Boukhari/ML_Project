@@ -385,13 +385,13 @@ if len(option)==3:
   df_err['X_plot1']=X_plot1
   #df_err.columns =['X']
   i = 2
-  st.dataframe(df_err)
-#   for a in algos:
-#     #a.train_classifieur(x_train, y_train)
-#     erreurs,X_plot = a.zones_erreur(x_train, x_test,y_train, y_test,i)
-#     df_err[a.name] =  erreurs
-#     i += 1
-#   st.dataframe(df_err)  
+  #st.dataframe(df_err)
+  for a in algos:
+    #a.train_classifieur(x_train, y_train)
+    erreurs,X_plot = a.zones_erreur(x_train, x_test,y_train, y_test,i)
+    df_err[a.name] =  erreurs
+    i += 1
+  st.dataframe(df_err)  
     
 # #   for k in dic_c.keys():
 # #     dic_c[k]
