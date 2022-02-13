@@ -425,7 +425,9 @@ if len(option)==3:
     
     
   
- 
+
+  dferpl=df_err1.drop(columns=['X_plot1', 'X_plot2','X_plot3'])
+  st.dataframe(dferpl) 
  
   
   
