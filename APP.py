@@ -328,12 +328,12 @@ if choice_svsparam == 'Yes':
         params.append(modl.score(x_test, y_test))
         
       params_mean += np.array(params)
-    error={k:u,'err': 1/N_mean*params_mean}
+    error={k:u,'score': 1/N_mean*params_mean}
     df_err=pd.DataFrame.from_dict(error, orient='columns', dtype=None, columns=None)
     base=alt.Chart(df_err)
     line11o = base.mark_line(color='#8A2BE2').encode(
         x=k,
-        y='err',)
+        y='score',)
     st.altair_chart(line11o, use_container_width=True)
   
 else:
@@ -379,20 +379,29 @@ if len(option)==3:
   algo2=classifieur(option[1])
   algo3=classifieur(option[2])
   algos = [algo1, algo2, algo3]
-  df_err=pd.DataFrame()
+  df_err1=pd.DataFrame()
   erreur1,X_plot1 = algo1.zones_erreur(x_train, x_test,y_train, y_test,1)
-  df_err[algo1.name] =  erreur1
-  df_err['X_plot1']=X_plot1
+  df_err1[algo1.name] =  erreur1
+  df_err1['X_plot1']=X_plot1
   #df_err.columns =['X']
   i = 2
   #st.dataframe(df_err)
   for a in algos:
     #a.train_classifieur(x_train, y_train)
     erreurs,X_plot = a.zones_erreur(x_train, x_test,y_train, y_test,i)
-    df_err[a.name] =  erreurs
-    df_err[f"X_plot{i}"]=X_plot
+    df_err1[a.name] =  erreurs
+    df_err1[f"X_plot{i}"]=X_plot
     i += 1
   st.dataframe(df_err)  
+  
+  base=alt.Chart(df_err1)
+  line1 = base.mark_line(color='#8A2BE2').encode(
+        x=_'X_plot1',
+        y=algo1.name,)
+  line2 = base.mark_line(color='#8A2BE2').encode(
+        x=_'X_plot2',
+        y=algo2.name,)
+  st.altair_chart(line1+line2, use_container_width=True)
     
 # #   for k in dic_c.keys():
 # #     dic_c[k]
