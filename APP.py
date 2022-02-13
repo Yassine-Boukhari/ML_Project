@@ -406,7 +406,7 @@ if len(option)==3:
     df_err1[a.name] =  erreurs
     df_err1[f"X_plot{i}"]=X_plot
     i += 1
-  st.dataframe(df_err1)  
+  #st.dataframe(df_err1)  
   
   basez=alt.Chart(df_err1)
   line1 = basez.mark_line(color='#458B00').encode(
