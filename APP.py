@@ -204,11 +204,11 @@ class classifieur:#(str):#,par,X_trai,Y_train,X_test,Y_test):
 
 ################################ 
 
-#Data viz
+#Data visualisation
       
       
 var = st.radio(
-     "What is the variable that you chose?  ",
+     "What is the variable that you choose?  ",
      ('Age', 'Cholesterol','ST depression induced by exercise relative to rest','Resting blood pressure','Maximum heart rate achieved'))
 
 var_target=pd.crosstab(df[variable(var).name],df.target)
@@ -227,7 +227,7 @@ gp_chartvar = alt.Chart(dfvar).mark_bar().encode(
 st.altair_chart(gp_chartvar, use_container_width=False)
  
   
-st.markdown("Now, let's try to see if there exists some correlation between the chosen two variables at each time with respect to having or not a heart condition. ")
+st.markdown("Now, let's try to see if there exists some correlation between the choosen two variables at each time with respect to having or not a heart condition. ")
 var1 = st.radio(
      "What is the first variable that you choose?  ",
       ('Age', 'Cholesterol','ST depression induced by exercise relative to rest','Resting blood pressure','Maximum heart rate achieved'))
@@ -288,7 +288,7 @@ Model=st.radio(
 
 
 st.markdown("At first hand, one may choose an arbitrary selection for the model's parameters and see how it performs. ")
-st.markdown ("**Remark :** The score of the chosen model depends also on one's choice in the data processing section.")
+st.markdown ("**Remark :** The score of the choosen model depends also on one's choice in the data processing section.")
 
 ####################################################################
 
